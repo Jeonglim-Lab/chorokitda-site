@@ -165,17 +165,92 @@
     sections.forEach(function (s) { navIO.observe(s); });
   }
 
-  /* ── 7. 히어로 슬라이드 (켄번스 크로스페이드) ── */
-  var slides = document.querySelectorAll('.hero__slide');
-  if (slides.length > 1 && !reduced) {
-    var current = 0;
-    setInterval(function () {
-      if (document.hidden) return;
-      current = (current + 1) % slides.length;
-      Array.prototype.forEach.call(slides, function (s, i) {
-        s.classList.toggle('is-active', i === current);
-      });
-    }, 5500);
+  /* ── 7. 히어로 슬라이드 (11장 · 끊김 없는 크로스페이드) ──
+     전환 중에는 이전 장을 완전히 불투명한 채로 아래에 두고(z-index 2)
+     새 장만 위에서(z-index 3) 2.05s 동안 opacity 0→1 로 올린다.
+     두 장이 동시에 반투명해지지 않으므로 중간 프레임이 어두워지지 않고,
+     이전 장은 is-leaving 인 동안 켄번스 애니메이션이 그대로 이어져
+     scale 이 원위치로 튀지 않는다. */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.hero__slide'));
+  var FADE = 2050;   // styles.css .hero__slide transition 길이와 동일
+  var HOLD = 5500;   // 한 장을 보여주는 시간
+  var current = 0;
+  var leaveTimer = null;
+
+  function slideImg(fig) { return fig ? fig.querySelector('img') : null; }
+
+  function slideReady(fig) {
+    var img = slideImg(fig);
+    return !!(img && img.complete && img.naturalWidth > 0);
+  }
+
+  function restartKenburns(fig) {
+    var img = slideImg(fig);
+    if (!img) return;
+    img.style.animation = 'none';
+    void img.offsetWidth;      // 리플로우로 애니메이션 초기화를 확정
+    img.style.animation = '';
+  }
+
+  function activate(i) {
+    var prev = slides[current];
+    var next = slides[i];
+    if (!next || next === prev) return;
+
+    // 나가는 장: 페이드가 끝날 때까지 불투명 유지 (켄번스도 계속)
+    prev.classList.remove('is-active', 'is-done');
+    prev.classList.add('is-leaving');
+
+    // 들어오는 장: 위에서 서서히 올라온다
+    next.classList.remove('is-leaving', 'is-done');
+    restartKenburns(next);
+    next.classList.add('is-active');
+
+    current = i;
+
+    window.clearTimeout(leaveTimer);
+    leaveTimer = window.setTimeout(function () {
+      prev.classList.remove('is-leaving');
+      prev.classList.add('is-done');
+    }, FADE + 90);
+  }
+
+  /* 백그라운드 순차 프리로드 — 1번은 preload 로 즉시, 2~11번은 load 이후 한 장씩 */
+  function preloadHero() {
+    var i = 1;
+    function step() {
+      if (i >= slides.length) return;
+      var img = slideImg(slides[i]);
+      var src = img && img.getAttribute('data-src');
+      if (!src) { i += 1; step(); return; }
+      var done = function () {
+        img.removeAttribute('data-src');
+        i += 1;
+        window.setTimeout(step, 80);
+      };
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+      img.src = src;
+    }
+    step();
+  }
+
+  if (slides.length > 1) {
+    if (document.readyState === 'complete') {
+      window.setTimeout(preloadHero, 300);
+    } else {
+      window.addEventListener('load', function () { window.setTimeout(preloadHero, 300); }, { once: true });
+    }
+
+    if (!reduced) {
+      window.setInterval(function () {
+        if (document.hidden) return;
+        var next = (current + 1) % slides.length;
+        // 다음 장이 아직 로드되지 않았다면 이번 차례는 건너뛰어 빈 화면이 보이지 않게 한다
+        if (!slideReady(slides[next])) return;
+        activate(next);
+      }, HOLD);
+    }
   }
 
   /* ── 8. 캔버스 모션 (부유하는 입자) ─────────── */
