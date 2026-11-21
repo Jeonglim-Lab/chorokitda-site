@@ -627,12 +627,12 @@ body.is-ready .hero__foot{opacity:1}
   mask-image:radial-gradient(circle at 30% 20%,#000,transparent 70%);
 }
 .book3d{
-  --bw: min(238px, 72%);
+  --bw: min(228px, 70%);
   --t: 30px;
   position: relative;
   width: var(--bw);
   aspect-ratio: 148 / 210;
-  perspective: 900px;
+  perspective: 1200px;
   perspective-origin: 50% 44%;
   transition: transform .9s var(--ease);
 }
@@ -646,10 +646,10 @@ body.is-ready .hero__foot{opacity:1}
 .book3d__inner{
   position:absolute;inset:0;
   transform-style:preserve-3d;
-  transform:rotateX(4deg) rotateY(25deg);
+  transform:rotateX(3deg) rotateY(20deg);
   transition:transform 1s var(--ease);
 }
-.book-card:hover .book3d__inner{transform:rotateX(3deg) rotateY(19deg)}
+.book-card:hover .book3d__inner{transform:rotateX(2deg) rotateY(15deg)}
 .book3d__front{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;background:#fff;
