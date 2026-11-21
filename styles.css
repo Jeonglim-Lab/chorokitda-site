@@ -891,8 +891,8 @@ body.is-ready .hero__foot{opacity:1}
   :root{--header-h:66px;--radius:18px;--radius-lg:22px}
   .hero{min-height:94svh;padding-top:calc(var(--header-h) + 24px)}
   .hero__slide img{object-position:50% center}
-  .hero__slide:nth-child(3) img{object-position:40% center}
-  .hero__slide:nth-child(5) img{object-position:58% center}
+  .hero__slide:nth-child(2) img{object-position:40% center}
+  .hero__slide:nth-child(8) img{object-position:58% center}
   .hero__veil{background:
     radial-gradient(130% 55% at 26% 46%,rgba(3,20,17,.34) 0%,rgba(3,20,17,.14) 58%,rgba(3,20,17,0) 78%),
     linear-gradient(180deg,rgba(4,22,19,.80) 0%,rgba(4,22,19,.42) 40%,rgba(4,22,19,.74) 76%,rgba(4,22,19,.94) 100%),
