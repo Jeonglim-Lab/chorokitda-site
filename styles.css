@@ -158,7 +158,7 @@ body.menu-open .header::after{opacity:0}
   visibility:hidden;
 }
 body.menu-open .mobile-menu{clip-path:inset(0 0 0 0);visibility:visible}
-.mobile-menu nav{display:flex;flex-direction:column;margin-top:auto}
+.mobile-menu nav{display:flex;flex-direction:column}
 .mobile-menu nav a{
   display:flex;align-items:baseline;gap:12px;
   font-size:clamp(1.2rem,4.8vw,1.45rem);font-weight:600;letter-spacing:-.03em;
