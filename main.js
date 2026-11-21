@@ -175,7 +175,7 @@
       Array.prototype.forEach.call(slides, function (s, i) {
         s.classList.toggle('is-active', i === current);
       });
-    }, 7000);
+    }, 5500);
   }
 
   /* ── 8. 캔버스 모션 (부유하는 입자) ─────────── */
