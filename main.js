@@ -261,6 +261,7 @@
     var parts = [];
     var pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
     var t0 = performance.now();
+    var lastTime = 0;
     var visible = true;
     var rafId = null;
 
@@ -272,10 +273,10 @@
           x: Math.random() * w,
           y: Math.random() * h,
           r: Math.random() * 2.1 + 0.5,
-          sp: Math.random() * 0.32 + 0.08,
+          sp: (Math.random() * 0.32 + 0.08) / 3,
           amp: Math.random() * 1.4 + 0.3,
           phase: Math.random() * Math.PI * 2,
-          freq: Math.random() * 0.6 + 0.2,
+          freq: (Math.random() * 0.6 + 0.2) / 3,
           alpha: Math.random() * 0.45 + 0.12,
           big: Math.random() > 0.86
         });
@@ -295,6 +296,9 @@
 
     function draw(now) {
       var t = (now - t0) / 1000;
+      /* 60fps(16.667ms) 기준으로 환산 — 120Hz 기기에서도 속도가 같도록 */
+      var dtScale = lastTime ? Math.min((now - lastTime) / 16.667, 3) : 1;
+      lastTime = now;
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = 'lighter';
 
@@ -303,7 +307,7 @@
 
       for (var i = 0; i < parts.length; i++) {
         var p = parts[i];
-        p.y -= p.sp;
+        p.y -= p.sp * dtScale;
         if (p.y < -12) { p.y = h + 12; p.x = Math.random() * w; }
 
         var x = p.x + Math.sin(t * p.freq + p.phase) * p.amp * 10 + pointerX * (p.big ? 26 : 14);
