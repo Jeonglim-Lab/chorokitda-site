@@ -156,7 +156,7 @@
 ## 15차 반영 (v16 로고) — 로고 심볼을 공식 디지털 원본에서 다시 추출
 - **원본 교체** — 사진(`IMG_1448`·`IMG_1450`)에서 오려내던 심볼을, 노션에 있던 공식 디지털 로고 `원형_로고_투명.png`(2400×2400)에서 다시 추출. `_source-originals/official-logo-circle-2400.png`로 보관하고 `_source-originals/build_logo.py`로 자산을 만든다
 - **반듯함** — 회전 0°(리프 줄기가 픽셀 단위로 세로), 사진의 흰 배경 번짐(헤일로)을 픽셀별 배경 추정으로 걷어낸 부드러운 알파. 색은 공식 컬러 로고에서 잰 가로 그라데이션(파랑 `#1c6eab` → 초록 `#30987c`)
-- **자산** — `logo-mark`·`logo-mark-white` 642×382(기존 368×218), `logo-circle` 720(공식 2400 원본을 Lanczos 축소), `favicon-32/64`·`apple-touch-icon`은 워드마크를 지우고 배경 그라데이션을 이어 붙인 심볼 원형으로 재생성
+- **자산** — `logo-mark`·`logo-mark-white` 642×382(기존 368×218), `logo-circle` 480(공식 2400 원본을 Lanczos 축소), `favicon-32/64`·`apple-touch-icon`은 워드마크를 지우고 배경 그라데이션을 이어 붙인 심볼 원형으로 재생성. PNG는 무손실 최적화(마크 111KB→54KB)
 - **기울임 제거** — `.brand:hover .brand__mark`의 `rotate(-8deg)`를 없애고 `scale(1.05)`만 남김. 터치 기기에서 탭 뒤 `:hover`가 남아 로고가 기울어 보이던 문제도 함께 사라짐
 - **캐시 갱신** — `styles.css?v=16`, `main.js?v=16`
 
