@@ -103,7 +103,9 @@ section{scroll-margin-top:calc(var(--header-h) + 12px)}
 .brand:hover .brand__mark{transform:rotate(-8deg) scale(1.04)}
 .header:not(.is-scrolled) .brand__mark{filter:brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0,0,0,.45));opacity:1}
 .brand__name{
-  font-weight:700;font-size:1.12rem;letter-spacing:-0.03em;
+  font-family:"Seoul Namsan","SeoulNamsanM",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  font-weight:700;font-size:1.16rem;letter-spacing:-0.012em;
+  line-height:1;padding-top:1px;
 }
 
 .nav{margin-left:auto;display:flex;gap:clamp(18px,2.4vw,38px)}
