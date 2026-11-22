@@ -1,4 +1,4 @@
-# 초록을잇다 홈페이지 (리뉴얼 26차 반영)
+# 초록을잇다 홈페이지 (리뉴얼 27차 반영)
 
 `chorokitda.co.kr` 리뉴얼 시안입니다. 빌드 도구 없이 그대로 올릴 수 있는 정적 파일 세트입니다.
 
@@ -214,6 +214,18 @@
 - **문구 연동** — meta description, `#about` 리드, `#services` 인트로, `#contact` 리드, JSON-LD keywords·knowsAbout·FAQ에서 `출판·제작`/`패키지 디자인` 표현을 원래대로 되돌림. **기업 ESG 교육·임직원 프로그램 문구는 그대로 유지.** `llms.txt`도 소개·사업 설명·키워드를 되돌리고, 실적 목록의 2026.10 한 줄은 유지.
 - **배포·검증** — `Jeonglim-Lab/chorokitda-site` `main` 푸시 → `https://chorokitda.co.kr/?v=25`, 1440×900에서 03 섹션 확인.
 - **캐시** — `styles.css?v=25`, `main.js?v=25`
+
+## 27차 반영 (v27) — 모바일 메뉴 버튼을 3줄(≡)로
+
+정림 님 요청으로 모바일 햄버거 버튼을 기존 2줄(`=`)에서 **3줄(`≡`)**로 바꿨습니다. 데스크톱(900px 초과)에서는 버튼이 숨겨지므로 화면 변화는 없습니다.
+
+- **`index.html`** — `.burger` 버튼 안 `<span>`을 2개 → **3개**로(마크업·`aria-label`·`aria-controls`·id는 그대로).
+- **`styles.css`** — 선 굵기 `1.5px`·색(`currentColor`)·버튼 크기(42×42)·선 길이(좌우 11px 여백, 20px)는 그대로 두고 간격만 다시 잡았습니다.
+  - 세 줄을 버튼 세로 중앙(21px)에 6px 간격으로 균등 배치: `top` 14.25 / 20.25 / 26.25px (각 선의 중심이 15 · 21 · 27px)
+  - 열었을 때 X 전환: 1번 줄 `translateY(6px) rotate(45deg)`, 3번 줄 `translateY(-6px) rotate(-45deg)`로 같은 중심에서 교차, **가운데 줄은 `opacity:0` + `scaleX(.4)`**로 가운데로 접히며 사라짐(기존 `transform .4s`·`opacity .3s` 전환 그대로 사용)
+  - `body.menu-open .burger{color:#fff}` 등 열린 상태 색은 그대로.
+- **캐시 갱신** — `styles.css?v=27`, `main.js?v=27` (JS는 바뀐 것이 없지만 CSS와 버전을 맞춰 함께 올림). `assets/photo-field.jpg?v=26`은 이미지 변경이 없어 그대로.
+- **배포·검증** — `Jeonglim-Lab/chorokitda-site` `main` 푸시 후 `https://chorokitda.co.kr/`를 390×844 모바일 뷰포트로 열어 세 줄 표시·토글 열기/닫기를 확인(스크린샷 `downloads/chorokitda-v27-menu-mobile.png`).
 
 ## 26차 반영 (v26 그대로) — 검색·AI용 키워드 4개 추가
 
