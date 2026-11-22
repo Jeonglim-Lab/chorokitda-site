@@ -1055,6 +1055,21 @@ body.is-ready .hero__foot{opacity:1}
   .feature__tags{display:none}
   .meta > div{grid-template-columns:80px minmax(0,1fr)}
   .sec-head{margin-bottom:32px}
+  /* 기업 인증 배지 — 모바일에서는 여백·글씨를 줄여 폭을 아낀다 */
+  .about__certs{gap:7px}
+  .about__certs li{font-size:.8125rem;padding:8px 12px 8px 10px;gap:7px}
+  .about__certs li::before{width:11px;height:11px}
+}
+
+/* 아주 좁은 화면: 인증 배지 3개가 한 줄에 — 줄바꿈을 막고 폭을 3등분 */
+@media (max-width:430px){
+  .about__certs{flex-wrap:nowrap;gap:6px}
+  .about__certs li{
+    flex:1 1 0;min-width:0;justify-content:center;white-space:nowrap;
+    padding:8px 4px;gap:5px;
+    font-size:clamp(11px,3.35vw,13px);letter-spacing:-.03em;
+  }
+  .about__certs li::before{width:10px;height:10px}
 }
 
 @media (prefers-reduced-motion:reduce){
