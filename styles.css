@@ -777,6 +777,32 @@ body.is-ready .hero__foot{opacity:1}
 .book-card__body{display:flex;flex-direction:column;gap:12px;padding:0 6px 8px}
 .book-card__cat{font-size:.8125rem;letter-spacing:.16em;color:var(--forest-700);font-weight:600}
 .book-card__desc{font-size:1.0625rem;line-height:1.8;color:var(--body);max-width:36em}
+
+/* 보고서 카드: 표지 이미지 없이 제목·발행·발행월만 텍스트로 — 여백으로 정갈하게 */
+.book-card--text{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 84% 6%,rgba(205,240,224,.62),transparent 58%),
+    linear-gradient(155deg,#f7faf5,#e9f0e6);
+}
+.book-card--text::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(13,110,88,.14) 1px,transparent 1px);
+  background-size:16px 16px;opacity:.42;
+  -webkit-mask-image:radial-gradient(circle at 18% 92%,#000,transparent 70%);
+  mask-image:radial-gradient(circle at 18% 92%,#000,transparent 70%);
+}
+.book-card--text .book-card__body{
+  position:relative;flex:1;gap:0;
+  padding:clamp(6px,1vw,14px) clamp(4px,.8vw,10px) clamp(4px,.8vw,10px);
+}
+.book-card--text .book-card__cat{color:var(--forest-800)}
+.book-card--text .book-card__title{
+  margin-top:auto;
+  font-size:clamp(1.32rem,2vw,1.86rem);line-height:1.44;
+  letter-spacing:-.035em;color:var(--ink);text-wrap:balance;
+}
+.book-card--text .meta{margin-top:auto;padding-top:clamp(16px,2vw,24px);border-top:1px solid rgba(12,26,23,.1)}
 .meta{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-soft);display:grid;gap:9px}
 .meta > div{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;align-items:baseline}
 .meta dt{font-size:.875rem;color:var(--muted);letter-spacing:.02em}
@@ -949,6 +975,7 @@ body.is-ready .hero__foot{opacity:1}
   .books__grid{grid-template-columns:1fr}
   .book-card__cover{min-height:0}
   .book3d{--bw:min(220px,58%)}
+  .book-card--text{min-height:clamp(250px,52vw,310px)}
 }
 @media (max-width:640px){
   :root{--header-h:66px;--radius:18px;--radius-lg:22px}
