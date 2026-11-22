@@ -585,6 +585,45 @@ body.is-ready .hero__foot{opacity:1}
 }
 .chips li span{font-size:.66rem;font-weight:600;letter-spacing:.14em;color:var(--emerald);flex:none}
 
+/* ── 주요 실적 더보기 아코디언 ──
+   접힌 상태에서도 높이가 0 이 되도록 grid-template-rows 0fr↔1fr 로 애니메이션합니다.
+   visibility 를 함께 전환해 접힌 동안 안쪽 내용은 초점·낭독 대상에서 빠집니다. */
+.case__lead{font-size:.9rem;line-height:1.8;color:var(--body);letter-spacing:-.01em}
+.cases--cont li:first-child{border-top:1px solid var(--line-soft);padding-top:12px}
+
+.acc{margin-top:14px}
+.acc__panel{
+  display:grid;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .5s var(--ease),visibility 0s linear .5s;
+}
+.acc__inner{overflow:hidden;min-height:0}
+.acc__inner > :first-child{margin-top:0}
+.acc.is-open > .acc__panel{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .5s var(--ease),visibility 0s linear 0s}
+
+.acc__btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:9px 15px 9px 16px;
+  font-size:.8rem;font-weight:600;letter-spacing:-.01em;color:var(--forest-800);
+  background:rgba(14,138,112,.055);border:1px solid rgba(13,110,88,.2);border-radius:999px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.acc__btn:hover{background:rgba(14,138,112,.11);border-color:rgba(13,110,88,.34);box-shadow:0 12px 24px -22px rgba(6,35,31,.6)}
+.acc__btn:active{transform:translateY(1px)}
+.acc__btn:focus-visible{outline:2px solid rgba(13,110,88,.55);outline-offset:3px}
+.acc__count{
+  font-size:.7rem;font-weight:600;letter-spacing:.02em;color:var(--emerald);
+  padding:2px 7px;border-radius:999px;background:rgba(14,138,112,.11);
+}
+.acc.is-open .acc__count{display:none}
+.acc__ico{
+  width:7px;height:7px;flex:none;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);
+  transition:transform .45s var(--ease);
+}
+.acc.is-open .acc__ico{transform:translateY(1px) rotate(-135deg)}
+
 /* ─────────── field / full-bleed visual ─────────── */
 .feature{
   position:relative;isolation:isolate;overflow:hidden;
@@ -906,10 +945,11 @@ body.is-ready .hero__foot{opacity:1}
   .hero__slide img{object-position:50% center}
   .hero__slide:nth-child(1) img{object-position:56% center}
   .hero__slide:nth-child(2) img{object-position:45% center}
-  .hero__slide:nth-child(6) img{object-position:58% center}
-  .hero__slide:nth-child(7) img{object-position:55% center}
-  .hero__slide:nth-child(9) img{object-position:48% center}
-  .hero__slide:nth-child(10) img{object-position:34% center}
+  .hero__slide:nth-child(4) img{object-position:62% center}
+  .hero__slide:nth-child(5) img{object-position:53% center}
+  .hero__slide:nth-child(8) img{object-position:58% center}
+  .hero__slide:nth-child(9) img{object-position:55% center}
+  .hero__slide:nth-child(11) img{object-position:34% center}
   .hero__veil{background:
     radial-gradient(130% 55% at 26% 46%,rgba(3,20,17,.34) 0%,rgba(3,20,17,.14) 58%,rgba(3,20,17,0) 78%),
     linear-gradient(180deg,rgba(4,22,19,.80) 0%,rgba(4,22,19,.42) 40%,rgba(4,22,19,.74) 76%,rgba(4,22,19,.94) 100%),
@@ -939,6 +979,7 @@ body.is-ready .hero__foot{opacity:1}
   .brand__mark{width:28px}
   .brand__name{font-size:1.2rem}
   .service__detail{padding:18px 16px;border-radius:18px;gap:24px}
+  .acc__btn{font-size:.78rem;padding:9px 14px 9px 15px}
   .levels{grid-template-columns:1fr}
   .levels--two{grid-template-columns:1fr}
   .diff{grid-template-columns:1fr}

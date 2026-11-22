@@ -360,7 +360,29 @@
     });
   }
 
-  /* ── 9. 내부 링크 부드러운 이동 ─────────────── */
+  /* ── 9. 주요 실적 더보기 아코디언 ──────────── */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-acc]'), function (acc) {
+    var btn = acc.querySelector('.acc__btn');
+    var panel = acc.querySelector('.acc__panel');
+    if (!btn || !panel) return;
+
+    var label = btn.querySelector('.acc__label');
+    var more = btn.getAttribute('data-more') || '주요 실적 더보기';
+    var less = btn.getAttribute('data-less') || '접기';
+
+    function setOpen(open) {
+      acc.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (label) label.textContent = open ? less : more;
+    }
+
+    setOpen(false);
+    btn.addEventListener('click', function () {
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+
+  /* ── 10. 내부 링크 부드러운 이동 ─────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var id = a.getAttribute('href');
