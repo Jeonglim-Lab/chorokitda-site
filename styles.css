@@ -324,17 +324,27 @@ body.is-ready .hero__foot{opacity:1}
 @keyframes scrollline{0%{top:-100%}60%,100%{top:100%}}
 
 /* ─────────── marquee ─────────── */
+/* 본문(.wrap)과 같은 폭·좌우 여백 안에서만 흐르도록 안쪽 뷰포트를 .wrap으로 맞춤 */
 .marquee{
+  --mq-gap:clamp(28px,4vw,56px);
+  --mq-fade:clamp(20px,3vw,52px);
   overflow:hidden;background:var(--paper);
   border-bottom:1px solid var(--line-soft);
   padding:clamp(16px,2vw,22px) 0;
 }
+.marquee__inner{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--mq-fade),#000 calc(100% - var(--mq-fade)),transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 var(--mq-fade),#000 calc(100% - var(--mq-fade)),transparent 100%);
+}
 .marquee__track{
-  display:flex;width:max-content;gap:clamp(28px,4vw,56px);
-  animation:marquee 42s linear infinite;
+  display:flex;width:max-content;
+  animation:marquee 80s linear infinite;
+  will-change:transform;
 }
 .marquee span{
-  display:inline-flex;align-items:center;gap:clamp(28px,4vw,56px);
+  display:inline-flex;align-items:center;gap:var(--mq-gap);
+  padding-right:var(--mq-gap);
   font-size:clamp(1.0625rem,1.5vw,1.28rem);font-weight:600;letter-spacing:-.03em;
   color:var(--forest-800);white-space:nowrap;
 }
