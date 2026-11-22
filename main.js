@@ -382,7 +382,38 @@
     });
   });
 
-  /* ── 10. 내부 링크 부드러운 이동 ─────────────── */
+  /* ── 10. 주요사업 상세 접기 (모바일 전용) ──────
+     PC에서는 CSS가 래퍼를 항상 펼쳐 보이게 하므로 상태 클래스는 모바일에서만 의미가 있습니다. */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fold]'), function (fold) {
+    var btn = fold.querySelector('.svc-fold__btn');
+    var panel = fold.querySelector('.svc-fold__panel');
+    if (!btn || !panel) return;
+
+    var label = btn.querySelector('.acc__label');
+    var more = btn.getAttribute('data-more') || '상세 내용 · 실적 보기';
+    var less = btn.getAttribute('data-less') || '접기';
+
+    function setOpen(open) {
+      fold.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (label) label.textContent = open ? less : more;
+    }
+
+    setOpen(false);
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      // 접을 때는 버튼이 화면 위로 벗어나 있으므로, 접힌 뒤 되돌아갈 자리를 잡아 준다
+      var wasAbove = fold.getBoundingClientRect().top < (header ? header.offsetHeight : 0);
+      setOpen(open);
+      if (!open && wasAbove) {
+        var offset = (header ? header.offsetHeight : 0) + 10;
+        var top = fold.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' });
+      }
+    });
+  });
+
+  /* ── 11. 내부 링크 부드러운 이동 ─────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var id = a.getAttribute('href');

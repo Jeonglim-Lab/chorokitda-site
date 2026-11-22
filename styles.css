@@ -655,6 +655,13 @@ body.is-ready .hero__foot{opacity:1}
 }
 .acc.is-open .acc__ico{transform:translateY(1px) rotate(-135deg)}
 
+/* ── 주요사업 상세 접기 (모바일 전용) ──
+   PC(769px 이상)에서는 래퍼가 아무 영향 없이 그대로 펼쳐 보이고 버튼은 숨깁니다.
+   모바일에서만 래퍼가 아코디언(0fr↔1fr)이 되어 첫 화면에서 세부 내용·실적이 접혀 있습니다. */
+.svc-fold__panel{display:block}
+.svc-fold__inner{display:block}
+.svc-fold__btn{display:none}
+
 /* ─────────── field / full-bleed visual ─────────── */
 .feature{
   position:relative;isolation:isolate;overflow:hidden;
@@ -1061,6 +1068,25 @@ body.is-ready .hero__foot{opacity:1}
   .about__certs{gap:7px}
   .about__certs li{font-size:.8125rem;padding:8px 12px 8px 10px;gap:7px}
   .about__certs li::before{width:11px;height:11px}
+}
+
+/* 모바일(≤768px): 주요사업 02 세부 내용·현장 사례를 기본 접힘으로 */
+@media (max-width:768px){
+  .svc-fold__panel{
+    display:grid;grid-template-rows:0fr;visibility:hidden;
+    transition:grid-template-rows .5s var(--ease),visibility 0s linear .5s;
+  }
+  .svc-fold__inner{overflow:hidden;min-height:0}
+  .svc-fold.is-open > .svc-fold__panel{
+    grid-template-rows:1fr;visibility:visible;
+    transition:grid-template-rows .5s var(--ease),visibility 0s linear 0s;
+  }
+  .svc-fold__btn{
+    display:flex;width:100%;justify-content:center;gap:8px;
+    margin-top:0;padding:13px 16px;border-radius:14px;
+    font-size:.9375rem;letter-spacing:-.01em;
+  }
+  .svc-fold.is-open .svc-fold__btn .acc__ico{transform:translateY(1px) rotate(-135deg)}
 }
 
 /* 아주 좁은 화면: 인증 배지 3개가 한 줄에 — 줄바꿈을 막고 폭을 3등분 */
