@@ -1,4 +1,4 @@
-# 초록을잇다 홈페이지 (리뉴얼 17차 반영)
+# 초록을잇다 홈페이지 (리뉴얼 18차 반영)
 
 `chorokitda.co.kr` 리뉴얼 시안입니다. 빌드 도구 없이 그대로 올릴 수 있는 정적 파일 세트입니다.
 
@@ -178,6 +178,26 @@
 - **명암비** — 세 장의 스크림(라디얼·세로·가로)은 그대로 두고, 실제 화면에서 제목 영역 배경 휘도로 계산한 흰 글씨 명암비가 12장 모두 **12.2:1 ~ 14.5:1**(최저 해상풍력 12.17:1, 신규 동백 13.29:1 · 비단벌레 12.25:1)로 WCAG AA(4.5:1)를 크게 옷돕니다.
 - **파일·캐시** — 12장 모두 새 이름 `hero-nature-01.jpg`~`hero-nature-12.jpg`(1600×900 progressive JPEG, 169~344KB, 12장 약 3.1MB)로 바꿔 이전 파일 캐시가 섞이지 않게 했습니다. 1번만 `preload`+`fetchpriority=high`, 2~12번은 `load` 이후 순차 프리로드. 바뀌 11장 세트는 `_source-originals/hero-v12/`에 보관했습니다.
 - **버전** — `styles.css?v=17`, `main.js?v=17`
+
+## 18차 반영 (v18) — 본문 글씨를 네이버 본문 크기(16~17px)로
+
+글씨가 작아 읽기 불편하다는 판단에, `styles.css`의 모든 `font-size`를 전수 확인해 단계별로 상향했습니다(1rem = 16px 기준).
+
+### 1) 본문·설명
+- **핵심 본문 → 16~17px** — `.lead` 15.7~17.3px → **17px**(`clamp(1.0625rem,1.15vw,1.125rem)`), `.service__desc` 15.2 → **17px**, `.hero__lead` 15.2~17.3 → **16~18px**, `.rows dd` 14.4 → **17px**, `.cases strong` 14.7 → **17px**, `.case__lead` 14.4 → **17px**, `.book-card__desc` 14.9 → **17px**, `.contact__info li` 15 → **17px**, `.ticks li`·`.diff li` 14.4 → **16px**, `.people__desc`·`.steps p`·`.about__keywords span` 14.1 → **16px**
+- **세부 본문·카드 설명 → 15~16px** — `.level__list li` 13.4 → **15px**, `.cases p` 13.3 → **15px**, `.service__note` 13.1 → **15px**, `.chips li` 13.4 → **15px**, `.recommend` 13.4 → **15px**, `.service__note--lg` 14.1 → **16px**, `.meta dd` 13.6 → **16px**
+- **메타·라벨·연도·키워드 → 13~14px** — `.rows dt` 12.5 → **14px**, `.cases span` 11.8 → **14px**, `.level__kw` 12.8 → **14px**, `.tags li` 12.2 → **14px**, `.sec-label` 11.8 → **13px**, `.meta dt` 12.2 → **14px**, `.footer__biz` 12.2 → **14px**(모바일 13px), `.badge` 10.2 → **13px**, `.acc__btn` 12.8 → **14px**
+- **소제목 균형** — `.h3--sm` 16.6~19.2 → **18~20.8px**, `.level h5` 16 → **18px**, `.service__quote` 16.3~18.2 → **18~20px**, `.people__title` 16.6~19.2 → **18~20.8px**, `.steps strong` 17 → **18px** (본문이 커진 만큼 제목과의 간격을 다시 벌림)
+- **줄간격** — 한국어 본문에 맞게 `.lead` 1.92 → **1.8**, `.service__desc` 1.9 → **1.8**, `.hero__lead` 1.9 → **1.8**, `.book-card__desc` 1.88 → **1.8**, `.people__desc`·`.steps p` 1.85·1.82 → **1.75**, `.rows dd` 1.7 → **1.75**
+- **자간 완화** — 작은 대문자 라벨의 자간을 조금 줄여(예: `.sec-label` .26em → **.22em**, `.hero__marks li` .22em → **.18em**) 한글 라벨이 흩어져 보이지 않게 함
+
+### 2) 레이아웃 보정
+- **`.rows` 라벨 칸** — `84px`(모바일 74px) → **88px**(모바일 82px)로 넓혀 14px로 커진 `dt`(수업 시간·운영 형태 등)가 잘리지 않게 함
+- **푸터 사업자 정보** — 14px로 커지며 `367-34-01760`·`010-7473-2122`가 하이픈에서 두 줄로 끊기던 문제를 막기 위해 두 번호를 `<span class="nowrap-num">`로 감싸고 `.nowrap-num{white-space:nowrap}`를 적용. 모바일(640px 이하)에서는 `.footer__biz`를 **13px**로 낮춰 한 줄 안에 담기게 함
+- **오버플로우 점검** — 320·360·390·430·768·1024·1280·1440·1920px에서 문서 가로 스크롤 0, 카드·칩·버튼·표(`.level`·`.chips li`·`.tags li`·`.cases li`·`.rows`·`.meta`·`.acc__btn`·`.btn`·`.people__card`) 내용 잘림 0
+
+### 3) 캐시
+- `styles.css?v=18`, `main.js?v=18`
 
 ## 17차 반영 (CNAME 유지) — 저장소에 항상 포함
 - **`CNAME`(`chorokitda.co.kr`) 저장소 포함** — `https://chorokitda.co.kr/`의 커스텀 도메인 설정이 풀리지 않도록 `CNAME` 파일을 늘 함께 푸시합니다. README에 남아 있던 “CNAME 제외” 문구 2곳을 “CNAME 포함”으로 바로잡았습니다(실제 파일은 이미 저장소에 들어 있습니다).
