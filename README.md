@@ -1,4 +1,4 @@
-# 초록을잇다 홈페이지 (리뉴얼 27차 반영)
+# 초록을잇다 홈페이지 (리뉴얼 28차 반영)
 
 `chorokitda.co.kr` 리뉴얼 시안입니다. 빌드 도구 없이 그대로 올릴 수 있는 정적 파일 세트입니다.
 
@@ -214,6 +214,19 @@
 - **문구 연동** — meta description, `#about` 리드, `#services` 인트로, `#contact` 리드, JSON-LD keywords·knowsAbout·FAQ에서 `출판·제작`/`패키지 디자인` 표현을 원래대로 되돌림. **기업 ESG 교육·임직원 프로그램 문구는 그대로 유지.** `llms.txt`도 소개·사업 설명·키워드를 되돌리고, 실적 목록의 2026.10 한 줄은 유지.
 - **배포·검증** — `Jeonglim-Lab/chorokitda-site` `main` 푸시 → `https://chorokitda.co.kr/?v=25`, 1440×900에서 03 섹션 확인.
 - **캐시** — `styles.css?v=25`, `main.js?v=25`
+
+## 28차 반영 (v28) — 모바일에서 주요사업 세부 내용 접기
+
+정림 님 요청으로 모바일에서 `02 주요사업`의 세부 분야·현장 사례를 기본으로 접어 스크롤 길이를 줄였습니다. PC 화면은 27차와 **완전히 동일**합니다(줄바꿈·크기·간격 그대로).
+
+- **`index.html`** — `#service-education` · `#service-program` · `#service-publishing` 각 글의 `.service__detail`(세부 분야 카드 + 현장 사례 + 기존 「주요 실적 더보기」 아코디언)을 `.svc-fold > .svc-fold__panel > .svc-fold__inner` 래퍼로 감쌌습니다. 접히지 않고 남는 부분은 **번호·제목, 대표 사진, 핵심 설명 문단, 태그**까지입니다. 래퍼 바로 아래에 모바일 전용 버튼(기존 `.acc__btn` 스타일, `상세 내용 · 실적 보기` ↔ 펼쳤을 때 `접기`)을 넣었습니다.
+- **`styles.css`** — PC에서는 래퍼가 `display:block`이라 마크업만 감싼 상태로 보임이 같습니다. `@media (max-width:768px)`에서만 `grid-template-rows:0fr↔1fr` + `visibility` 전환으로 부드럽게 접히고 펼쳐지며, 버튼은 이 구간에서만 보입니다(가로 폭 꽉 채운 둥근 버튼). 769px 이상으로 창을 키우면 자동으로 펼쳐지고 버튼은 숨습니다.
+- **`main.js`** — `[data-fold]` 토글 추가(`aria-expanded`·라벨 전환). 펼친 뒤에는 기존 `cases-education` · `case-balbal` 아코디언이 그대로 동작합니다. 접을 때 버튼이 화면 위로 벗어나 있으면 접힌 글의 위치로 부드럽게 돌아갑니다.
+- **캐시 갱신** — `styles.css?v=28`, `main.js?v=28`
+- **배포·검증** — `Jeonglim-Lab/chorokitda-site` `main` 푸시(커밋 `26d460e`) → GitHub Pages `status: built` 확인 → `https://chorokitda.co.kr/` 실사이트 측정.
+  - **모바일 390×844**: 전체 문서 높이 **16,860px → 10,138px**(6,722px · 약 40% 감소), `#services` 높이 **9,647px → 2,925px**, 가로 스크롤 0. 세 글 모두 세부 패널 0px·버튼 노출, 「상세 내용 · 실적 보기」 클릭 시 환경교육 패널 2,599px 펼쳐지고 라벨이 `접기`로 바뀜(문서 12,737px), 다시 누르면 10,138px로 복귀.
+  - **데스크톱 1440×900**: 문서 높이 **11,928px(27차와 동일)**, 세부 패널 높이 1,322 / 1,220 / 933px(동일), 버튼 `display:none`.
+  - 스크린샷: `downloads/chorokitda-v28-mobile-collapsed.png`(접힌 모바일 주요사업), `downloads/chorokitda-v28-mobile-services-before-v27.png`(27차 같은 영역), `downloads/chorokitda-v28-mobile-expanded.png`(펼친 모습), `downloads/chorokitda-v28-desktop-services.png`(PC 그대로)
 
 ## 27차 반영 (v27) — 모바일 메뉴 버튼을 3줄(≡)로
 
